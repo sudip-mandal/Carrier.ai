@@ -1,0 +1,65 @@
+:root {
+  --color-primary: #2979FF;
+  --color-secondary: #00BFA6;
+  --color-background: #F5F7FA;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #212121;
+  --color-text-secondary: #616161;
+  --color-success: #66BB6A;
+  --color-error: #FF5252;
+  --color-gradient: linear-gradient(90deg, #2979FF 0%, #00BFA6 100%);
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+.header-gradient {
+  background: var(--color-gradient);
+  color: white;
+  padding: 40px;
+  text-align: center;
+  font-size: 2rem;
+  border-radius: 0 0 12px 12px;
+}
+
+.card {
+  background: var(--color-surface);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  border-radius: 12px;
+  margin: 20px;
+}
+
+.button-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #1565C0;
+}
+#button-container2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 100vw;
+  
+}
+#gotocalendar{
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  }

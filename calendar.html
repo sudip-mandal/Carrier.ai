@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendex</title>
+  <link rel="stylesheet" href="css/calendar-style.css">
+</head>
+<body>
+  <div class="calendar-app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <h1 class="logo">📅 Calendex</h1>
+        <div class="month-picker">
+          <div class="month">June 2025</div>
+          <div class="date-range">Select a day</div>
+        </div>
+        <div class="calendar-mini">
+          <table>
+            <thead>
+              <tr><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr>
+            </thead>
+            <tbody>
+              <tr><td></td><td></td><td></td><td></td><td></td><td class="clickable" data-day="1">1</td><td class="clickable" data-day="2">2</td></tr>
+              <tr><td class="clickable" data-day="3">3</td><td class="clickable" data-day="4">4</td><td class="clickable" data-day="5">5</td><td class="clickable" data-day="6">6</td><td class="clickable" data-day="7">7</td><td class="clickable" data-day="8">8</td><td class="clickable" data-day="9">9</td></tr>
+              <tr><td class="clickable" data-day="10">10</td><td class="clickable" data-day="11">11</td><td class="clickable" data-day="12">12</td><td class="clickable" data-day="13">13</td><td class="clickable" data-day="14">14</td><td class="clickable" data-day="15">15</td><td class="clickable" data-day="16">16</td></tr>
+              <tr><td class="clickable" data-day="17">17</td><td class="clickable" data-day="18">18</td><td class="clickable" data-day="19">19</td><td class="clickable" data-day="20">20</td><td class="clickable" data-day="21">21</td><td class="clickable" data-day="22">22</td><td class="clickable" data-day="23">23</td></tr>
+              <tr><td class="clickable" data-day="24">24</td><td class="clickable" data-day="25">25</td><td class="clickable" data-day="26">26</td><td class="clickable" data-day="27">27</td><td class="clickable" data-day="28">28</td><td class="clickable" data-day="29">29</td><td class="clickable" data-day="30">30</td></tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Calendar -->
+    <main class="calendar-view">
+      <div class="calendar-header">
+        <button class="btn">Today</button>
+        <div class="view-controls">
+          <button id="btn-day">Day</button>
+          <button id="btn-week" class="active">Week</button>
+          <button id="btn-month">Month</button>
+        </div>
+        <button class="btn add-event">+ Add Event</button>
+      </div>
+      <div class="calendar-grid" id="schedule-container"></div>
+    </main>
+  </div>
+
+  <script>
+    const scheduleContainer = document.getElementById("schedule-container");
+    let currentView = 'week';
+
+    // Shared tasks: apply to 5, 6, and 7 June
+    const sharedTasks = [
+      { time: "9:00 AM", title: "Frontend Coding", color: "blue" },
+      { time: "11:00 AM", title: "Team Discussion", color: "purple" },
+      { time: "2:00 PM", title: "Prototype Testing", color: "green" }
+    ];
+
+    const schedules = {
+      5: sharedTasks,
+      6: sharedTasks,
+      7: sharedTasks
+    };
+
+function loadSchedule(day) {
+  scheduleContainer.innerHTML = '';
+
+  if (currentView === 'day') {
+    const events = schedules[day] || [];
+
+    // Create wrapper for time + day column
+    const dayWrapper = document.createElement('div');
+    dayWrapper.style.display = 'flex';
+
+    const timeColumn = document.createElement('div');
+    timeColumn.className = 'time-column';
+
+    const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM'];
+
+    timeSlots.forEach(time => {
+      const timeDiv = document.createElement('div');
+      timeDiv.textContent = time;
+      timeColumn.appendChild(timeDiv);
+    });
+
+    const dayColumn = document.createElement('div');
+    dayColumn.className = 'day-column';
+
+    timeSlots.forEach(timeSlot => {
+      const eventBlock = document.createElement('div');
+      eventBlock.className = 'event-slot';
+
+      const match = events.find(ev => ev.time.includes(timeSlot));
+      if (match) {
+        const eventDiv = document.createElement('div');
+        eventDiv.className = `event ${match.color}`;
+        eventDiv.innerHTML = `<strong>${match.title}</strong><br><small>${match.time}</small>`;
+        eventBlock.appendChild(eventDiv);
+      }
+
+      dayColumn.appendChild(eventBlock);
+    });
+
+    dayWrapper.appendChild(timeColumn);
+    dayWrapper.appendChild(dayColumn);
+    scheduleContainer.appendChild(dayWrapper);
+  }
+
+  else if (currentView === 'week') {
+    const daysOfWeek = [5, 6, 7, 8, 9, 10, 11];
+    daysOfWeek.forEach(dayNum => {
+      const dayColumn = document.createElement('div');
+      dayColumn.className = 'day-column';
+      const header = document.createElement('h3');
+      header.textContent = `June ${dayNum}`;
+      dayColumn.appendChild(header);
+
+      const events = schedules[dayNum] || [];
+      events.forEach(event => {
+        const task = document.createElement('div');
+        task.className = 'task';
+        task.innerHTML = `
+          <strong>${event.title}</strong><br>
+          <span class="tag">${event.time}</span>
+        `;
+        dayColumn.appendChild(task);
+      });
+
+      scheduleContainer.appendChild(dayColumn);
+    });
+  }
+
+  else if (currentView === 'month') {
+    const monthGrid = document.createElement('div');
+    monthGrid.className = 'month-grid';
+
+    for (let d = 1; d <= 30; d++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'month-day-cell';
+      const date = document.createElement('div');
+      date.className = 'date-number';
+      date.textContent = d;
+      dayCell.appendChild(date);
+
+      const events = schedules[d] || [];
+      events.forEach(event => {
+        const task = document.createElement('div');
+        task.className = 'roadmap-task';
+        task.innerHTML = `
+          <strong>${event.title}</strong><br>
+          <span class="tag">${event.time}</span>
+        `;
+        dayCell.appendChild(task);
+      });
+
+      monthGrid.appendChild(dayCell);
+    }
+
+    scheduleContainer.appendChild(monthGrid);
+  }
+}
+
+
+    document.querySelectorAll(".clickable").forEach(el => {
+      el.addEventListener("click", () => {
+        const day = parseInt(el.dataset.day);
+        loadSchedule(day);
+      });
+    });
+
+    document.querySelectorAll(".view-controls button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".view-controls button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentView = btn.id.replace("btn-", "");
+        loadSchedule(5); // Default to June 5
+      });
+    });
+
+    loadSchedule(5);
+  </script>
+</body>
+</html>

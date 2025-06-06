@@ -1,0 +1,187 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #1e1f23;
+  color: #fff;
+}
+
+.calendar-app {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #2c2d33;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 1.4rem;
+  margin-bottom: 1em;
+}
+
+.calendar-mini table {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.85em;
+  color: #bbb;
+}
+
+.calendar-mini td, th {
+  padding: 5px;
+}
+
+.clickable {
+  cursor: pointer;
+  color: #4c6ef5;
+  font-weight: bold;
+}
+.clickable:hover {
+  background: #3f51b5;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.today {
+  background-color: #3f51b5;
+  color: #fff;
+  border-radius: 50%;
+}
+
+/* Calendar View */
+.calendar-view {
+  flex: 1;
+  background: #18181b;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background: #3f51b5;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-event {
+  background: #4c6ef5;
+}
+
+.view-controls button {
+  background: #2e2f33;
+  color: #ccc;
+  padding: 6px 10px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-controls .active {
+  background: #3f51b5;
+  color: white;
+}
+
+/* DAY View */
+.time-column {
+  width: 80px;
+  font-size: 0.8em;
+  color: #999;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.time-column div {
+  height: 60px;
+  border-bottom: 1px solid #333;
+}
+
+.day-column .event-slot {
+  height: 60px;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+
+.event {
+  position: absolute;
+  margin-left: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
+  font-size: 0.8em;
+  border-radius: 8px;
+  color: white;
+}
+
+
+.blue { background: #4c6ef5; }
+.green { background: #40c057; }
+.purple { background: #ae3ec9; }
+
+/* WEEK View */
+.task {
+  background: #292929;
+  border-left: 4px solid #5e9eff;
+  margin-bottom: 10px;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #333;
+  color: #a5c0ff;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* MONTH View */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  background-color: #121212;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.month-day-cell {
+  background-color: #1e1e1e;
+  border-radius: 6px;
+  padding: 8px;
+  color: #e0e0e0;
+  min-height: 120px;
+  font-size: 12px;
+  position: relative;
+  overflow: auto;
+}
+
+.date-number {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #bbb;
+}
+
+.roadmap-task {
+  background-color: #292929;
+  border-left: 4px solid #5e9eff;
+  padding: 6px;
+  margin-top: 6px;
+  border-radius: 4px;
+}
