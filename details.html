@@ -1,11 +1,26 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Carrier.ai</title>
+  <title>Details - Carrier.ai</title>
   <link rel="stylesheet" href="css/loginstyle.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
 </head>
 <body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Carrier.ai</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="planner.html">Career Planner</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="explorer.html">Explore</a>
+        <div class="theme-toggle-container">
+          <button id="theme-toggle" onclick="toggleDetailsTheme()" title="Switch theme">🌙</button>
+        </div>
+      </nav>
+    </div>
+  </header>
   <div class="card">
     <h2>Login</h2>
     <form action="planner.html" method="get">
@@ -23,5 +38,6 @@
       <button class="button-primary" type="submit">Continue</button>
     </form>
   </div>
+  <script src="js/details-theme.js"></script>
 </body>
 </html> 

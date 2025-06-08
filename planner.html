@@ -1,24 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Smart Planner - Carrier.ai</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Planner - Carrier.ai</title>
+    <link rel="stylesheet" href="css/planner-style.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
 </head>
 <body>
-  <header class="header-gradient">
-    <h1>Your Career Plan</h1>
-  </header>
-  <div class="card">
-    <h3>Sample Roadmap</h3>
-    <ul>
-      <li><input type="checkbox"> Learn HTML & CSS</li>
-      <li><input type="checkbox"> JavaScript Basics</li>
-      <li><input type="checkbox"> Build Portfolio Website</li>
-    </ul>
-  </div>
-  <div id="button-container2">
-    <button id='gotocalender' type="submit" onclick="location.href='calendar.html'">go to calender</button>
-  </div>
+    <header>
+        <div class="navbar">
+            <div class="logo">Carrier.ai</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="planner.html">Career Planner</a>
+                <a href="calendar.html">Calendar</a>
+                <a href="explorer.html">Explore</a>
+                <div class="theme-toggle-container">
+                    <button id="theme-toggle" onclick="togglePlannerTheme()" title="Switch theme">🌙</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="card">
+        <h3>Career Roadmap</h3>
+        <div class="task-input">
+            <input type="text" id="newTask" placeholder="Add a new task...">
+            <button onclick="addNewTask()">Add Task</button>
+        </div>
+        <ul id="taskList">
+            <li><input type="checkbox"> Learn HTML & CSS</li>
+            <li><input type="checkbox"> JavaScript Basics</li>
+            <li><input type="checkbox"> Build Portfolio Website</li>
+            <li><input type="checkbox"> Learn React.js</li>
+            <li><input type="checkbox"> Practice Data Structures</li>
+        </ul>
+        <div class="task-actions">
+            <button onclick="clearTasks()" class="clear-btn">Clear All Tasks</button>
+        </div>
+    </div>
+
+    <div id="button-container2">
+        <button id="gotocalender" type="button" onclick="location.href='calendar.html'">Go to Calendar</button>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/planner.js"></script>
+    <script src="js/planner-theme.js"></script>
+    <script>
+        function addNewTask() {
+            const input = document.getElementById('newTask');
+            const taskText = input.value.trim();
+            
+            if (taskText) {
+                addTask(taskText);
+                input.value = '';
+            }
+        }
+
+        // Add event listener for Enter key
+        document.getElementById('newTask').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addNewTask();
+            }
+        });
+    </script>
 </body>
 </html>

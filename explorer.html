@@ -2,13 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Explorer - Carrier.ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Explorer - Carrier.ai</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
 </head>
 <body>
-  <header class="header-gradient">
-    <h1>Explore Opportunities</h1>
+  <header>
+    <div class="navbar">
+      <div class="logo">Carrier.ai</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="planner.html">Career Planner</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="explorer.html">Explore</a>
+        <div class="theme-toggle-container">
+          <button id="theme-toggle" onclick="toggleTheme()" title="Switch theme">🌙</button>
+        </div>
+      </nav>
+    </div>
   </header>
+
+  <main>
+    <h1>Explore Careers</h1>
+    <p>Discover your perfect career path</p>
+  </main>
+
   <div class="card">
     <h3>Upcoming Events</h3>
     <ul>
@@ -16,5 +35,7 @@
       <li>UI/UX Design Challenge - June 15</li>
     </ul>
   </div>
+
+  <script src="js/theme.js"></script>
 </body>
 </html>

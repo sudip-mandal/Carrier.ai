@@ -2,19 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Carrier.ai</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
 </head>
 <body>
-  <div class="card">
-    <h2>Dashboard</h2>
-    <p>Career Goal: Web Developer</p>
-    <p>Progress: 30%</p>
-    <p>Suggested Resources:</p>
-    <ul>
-      <li>freeCodeCamp</li>
-      <li>MDN Web Docs</li>
-    </ul>
-  </div>
+  <header>
+    <div class="navbar">
+      <div class="logo">Carrier.ai</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="planner.html">Career Planner</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="explorer.html">Explore</a>
+        <div class="theme-toggle-container">
+          <button id="theme-toggle" onclick="toggleTheme()" title="Switch theme">🌙</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Dashboard</h1>
+    <p>Welcome to your career dashboard</p>
+  </main>
+
+  <script src="js/theme.js"></script>
 </body>
 </html>

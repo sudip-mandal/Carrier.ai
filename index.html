@@ -3,18 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrier.ai</title>
+  <title>Carrier.ai - Home</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <script src="js/theme.js"></script>
 </head>
 <body>
-  <header class="header-gradient">
-    <h1>Welcome to Carrier.ai</h1>
-    <p>Your AI-Powered Career Planner</p>
-    <button class="button-primary" onclick="location.href='login.html'">Get Started</button>
+  <header>
+    <div class="navbar">
+      <div class="logo">Carrier.ai</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="planner.html">Career Planner</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="explorer.html">Explore</a>
+        <div class="theme-toggle-container">
+          <button id="theme-toggle" onclick="toggleTheme()" title="Switch theme">🌙</button>
+        </div>
+      </nav>
+    </div>
   </header>
-  <div class="card">
-    <h2>Plan Your Career, Smartly</h2>
-    <p>AI-generated roadmaps, dynamic calendars, real-world opportunities — all in one place.</p>
-  </div>
+
+  <main>
+    <h1>Welcome to Carrier.ai</h1>
+    <p>Your AI-powered career companion</p>
+  </main>
+
+  <script src="js/theme.js"></script>
 </body>
 </html>

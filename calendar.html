@@ -5,8 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calendex</title>
   <link rel="stylesheet" href="css/calendar-style.css">
+  <link rel="stylesheet" href="css/theme-toggle.css">
 </head>
 <body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Carrier.ai</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="planner.html">Career Planner</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="explorer.html">Explore</a>
+        <div class="theme-toggle-container">
+          <button id="theme-toggle" onclick="toggleCalendarTheme()" title="Switch theme">🌙</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <div class="calendar-app">
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -49,9 +65,12 @@
     </main>
   </div>
 
+  <script src="js/theme.js"></script>
+  <script src="js/calendar-theme.js"></script>
   <script>
     const scheduleContainer = document.getElementById("schedule-container");
     let currentView = 'week';
+    let selectedDay = 5;
 
     // Shared tasks: apply to 5, 6, and 7 June
     const sharedTasks = [
@@ -66,109 +85,127 @@
       7: sharedTasks
     };
 
-function loadSchedule(day) {
-  scheduleContainer.innerHTML = '';
+    function loadSchedule(day) {
+      scheduleContainer.innerHTML = '';
 
-  if (currentView === 'day') {
-    const events = schedules[day] || [];
+      if (currentView === 'day') {
+        const events = schedules[day] || [];
 
-    // Create wrapper for time + day column
-    const dayWrapper = document.createElement('div');
-    dayWrapper.style.display = 'flex';
+        // Create wrapper for time + day column
+        const dayWrapper = document.createElement('div');
+        dayWrapper.style.display = 'flex';
 
-    const timeColumn = document.createElement('div');
-    timeColumn.className = 'time-column';
+        const timeColumn = document.createElement('div');
+        timeColumn.className = 'time-column';
 
-    const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM'];
+        const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM'];
 
-    timeSlots.forEach(time => {
-      const timeDiv = document.createElement('div');
-      timeDiv.textContent = time;
-      timeColumn.appendChild(timeDiv);
-    });
+        timeSlots.forEach(time => {
+          const timeDiv = document.createElement('div');
+          timeDiv.textContent = time;
+          timeColumn.appendChild(timeDiv);
+        });
 
-    const dayColumn = document.createElement('div');
-    dayColumn.className = 'day-column';
+        const dayColumn = document.createElement('div');
+        dayColumn.className = 'day-column';
 
-    timeSlots.forEach(timeSlot => {
-      const eventBlock = document.createElement('div');
-      eventBlock.className = 'event-slot';
+        timeSlots.forEach(timeSlot => {
+          const eventBlock = document.createElement('div');
+          eventBlock.className = 'event-slot';
 
-      const match = events.find(ev => ev.time.includes(timeSlot));
-      if (match) {
-        const eventDiv = document.createElement('div');
-        eventDiv.className = `event ${match.color}`;
-        eventDiv.innerHTML = `<strong>${match.title}</strong><br><small>${match.time}</small>`;
-        eventBlock.appendChild(eventDiv);
+          const match = events.find(ev => ev.time.includes(timeSlot));
+          if (match) {
+            const eventDiv = document.createElement('div');
+            eventDiv.className = `event ${match.color}`;
+            eventDiv.innerHTML = `<strong>${match.title}</strong><br><small>${match.time}</small>`;
+            eventBlock.appendChild(eventDiv);
+          }
+
+          dayColumn.appendChild(eventBlock);
+        });
+
+        dayWrapper.appendChild(timeColumn);
+        dayWrapper.appendChild(dayColumn);
+        scheduleContainer.appendChild(dayWrapper);
       }
 
-      dayColumn.appendChild(eventBlock);
-    });
+      else if (currentView === 'week') {
+        const daysOfWeek = [5, 6, 7, 8, 9, 10, 11];
+        daysOfWeek.forEach(dayNum => {
+          const dayColumn = document.createElement('div');
+          dayColumn.className = 'day-column';
+          const header = document.createElement('h3');
+          header.textContent = `June ${dayNum}`;
+          dayColumn.appendChild(header);
 
-    dayWrapper.appendChild(timeColumn);
-    dayWrapper.appendChild(dayColumn);
-    scheduleContainer.appendChild(dayWrapper);
-  }
+          const events = schedules[dayNum] || [];
+          events.forEach(event => {
+            const task = document.createElement('div');
+            task.className = 'task';
+            task.innerHTML = `
+              <strong>${event.title}</strong><br>
+              <span class="tag">${event.time}</span>
+            `;
+            dayColumn.appendChild(task);
+          });
 
-  else if (currentView === 'week') {
-    const daysOfWeek = [5, 6, 7, 8, 9, 10, 11];
-    daysOfWeek.forEach(dayNum => {
-      const dayColumn = document.createElement('div');
-      dayColumn.className = 'day-column';
-      const header = document.createElement('h3');
-      header.textContent = `June ${dayNum}`;
-      dayColumn.appendChild(header);
+          scheduleContainer.appendChild(dayColumn);
+        });
+      }
 
-      const events = schedules[dayNum] || [];
-      events.forEach(event => {
-        const task = document.createElement('div');
-        task.className = 'task';
-        task.innerHTML = `
-          <strong>${event.title}</strong><br>
-          <span class="tag">${event.time}</span>
-        `;
-        dayColumn.appendChild(task);
-      });
+      else if (currentView === 'month') {
+        const monthGrid = document.createElement('div');
+        monthGrid.className = 'month-grid';
 
-      scheduleContainer.appendChild(dayColumn);
-    });
-  }
+        for (let d = 1; d <= 30; d++) {
+          const dayCell = document.createElement('div');
+          dayCell.className = 'month-day-cell';
+          const date = document.createElement('div');
+          date.className = 'date-number';
+          date.textContent = d;
+          dayCell.appendChild(date);
 
-  else if (currentView === 'month') {
-    const monthGrid = document.createElement('div');
-    monthGrid.className = 'month-grid';
+          const events = schedules[d] || [];
+          events.forEach(event => {
+            const task = document.createElement('div');
+            task.className = 'roadmap-task';
+            task.innerHTML = `
+              <strong>${event.title}</strong><br>
+              <span class="tag">${event.time}</span>
+            `;
+            dayCell.appendChild(task);
+          });
 
-    for (let d = 1; d <= 30; d++) {
-      const dayCell = document.createElement('div');
-      dayCell.className = 'month-day-cell';
-      const date = document.createElement('div');
-      date.className = 'date-number';
-      date.textContent = d;
-      dayCell.appendChild(date);
+          monthGrid.appendChild(dayCell);
+        }
 
-      const events = schedules[d] || [];
-      events.forEach(event => {
-        const task = document.createElement('div');
-        task.className = 'roadmap-task';
-        task.innerHTML = `
-          <strong>${event.title}</strong><br>
-          <span class="tag">${event.time}</span>
-        `;
-        dayCell.appendChild(task);
-      });
-
-      monthGrid.appendChild(dayCell);
+        scheduleContainer.appendChild(monthGrid);
+      }
     }
 
-    scheduleContainer.appendChild(monthGrid);
-  }
-}
-
+    function highlightMiniCalendar(day) {
+      document.querySelectorAll('.calendar-mini td').forEach(td => {
+        if (parseInt(td.textContent) === day) {
+          td.style.backgroundColor = '#6366f1';
+          td.style.color = '#fff';
+          td.style.borderRadius = '0.375rem';
+        } else {
+          td.style.backgroundColor = 'transparent';
+          td.style.color = (localStorage.getItem('calendar-theme') || 'light') === 'light' ? '#1f2937' : '#f3f4f6';
+        }
+      });
+    }
 
     document.querySelectorAll(".clickable").forEach(el => {
       el.addEventListener("click", () => {
         const day = parseInt(el.dataset.day);
+        selectedDay = day;
+        currentView = 'day';
+        document.querySelectorAll(".view-controls button").forEach(b => b.classList.remove("active"));
+        document.getElementById('btn-day').classList.add('active');
         loadSchedule(day);
+        setCalendarTheme(localStorage.getItem('calendar-theme') || 'light');
+        highlightMiniCalendar(day);
       });
     });
 
@@ -177,11 +214,15 @@ function loadSchedule(day) {
         document.querySelectorAll(".view-controls button").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentView = btn.id.replace("btn-", "");
-        loadSchedule(5); // Default to June 5
+        loadSchedule(selectedDay); // Use selectedDay
+        setCalendarTheme(localStorage.getItem('calendar-theme') || 'light');
+        highlightMiniCalendar(selectedDay);
       });
     });
 
-    loadSchedule(5);
+    loadSchedule(selectedDay);
+    setCalendarTheme(localStorage.getItem('calendar-theme') || 'light');
+    highlightMiniCalendar(selectedDay);
   </script>
 </body>
 </html>
