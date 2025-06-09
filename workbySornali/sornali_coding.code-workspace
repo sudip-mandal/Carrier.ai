@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../sornali_coding"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.debug.settings.onBuildFailureProceed": true,
+		"liveServer.settings.multiRootWorkspaceName": "Html"
+	}
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .weather-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    .weather-container h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #2193b0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #17697f;
+    }
+
+    .weather-result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .weather-result img {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-container">
+    <h1>Weather App</h1>
+    <input type="text" id="locationInput" placeholder="Enter location">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="weatherResult" class="weather-result">
+      <!-- Weather info will appear here -->
+    </div>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const location = document.getElementById('locationInput').value;
+      const resultDiv = document.getElementById('weatherResult');
+
+      if (!location) {
+        resultDiv.innerHTML = `<p>Please enter a location.</p>`;
+        return;
+      }
+
+      const apiKey = 'e17c0b0663544c02b32202750250506';
+      const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}&aqi=yes`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          resultDiv.innerHTML = `<p>Location not found. Please try again.</p>`;
+          return;
+        }
+
+        const data = await response.json();
+        const { name, region, country } = data.location;
+        const { temp_c, condition } = data.current;
+
+        resultDiv.innerHTML = `
+          <p><strong>${name}, ${region}, ${country}</strong></p>
+          <p>Temperature: ${temp_c}°C</p>
+          <p>Condition: ${condition.text}</p>
+          <img src="${condition.icon}" alt="Weather icon">
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = `<p>Error fetching data. Please try again later.</p>`;
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career.ai</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f8;
+      color: #333;
+    }
+
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1522199710521-72d69614c702') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-texts h1, .hero-texts p {
+      opacity: 0;
+      animation: slideFade 1.5s ease-in-out forwards;
+    }
+
+    .hero-texts h1:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .hero-texts p:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+
+    .hero-texts .tagline {
+      animation-delay: 3s;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta {
+      padding: 0.75rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      background-color: #00b894;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .cta:hover {
+      background-color: #019875;
+    }
+
+    @keyframes slideFade {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .tagline {
+      font-size: 1rem;
+      font-style: italic;
+      color: #dff9fb;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-texts">
+      <h1>Unlock your true career potential with AI</h1>
+      <p>Discover the best career paths tailored for you</p>
+      <p class="tagline">AI-powered personalized roadmaps</p>
+      <button class="cta" onclick="window.location.href='#start'">Get Started</button>
+    </div>
+  </div>
+</body>
+</html>
